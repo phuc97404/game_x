@@ -9,8 +9,8 @@
     "isHot": true,
     "isNew": true,
     "createdAt": "2023-12-01",
-    "hidden": false,
-    "updatedAt": "2023-12-01"
+    "hidden": true,
+    "updatedAt": "2025-07-18T11:10:50.477Z"
   },
   {
     "id": "acc002",
@@ -22,8 +22,8 @@
     "isHot": true,
     "isNew": true,
     "createdAt": "2023-12-02",
-    "hidden": false,
-    "updatedAt": "2025-07-18T09:54:03.286Z"
+    "hidden": true,
+    "updatedAt": "2025-07-18T10:49:37.658Z"
   },
   {
     "id": "acc003",
@@ -35,8 +35,8 @@
     "isHot": true,
     "isNew": true,
     "createdAt": "2025-07-18T09:47:35.753Z",
-    "updatedAt": "2025-07-18T09:54:07.661Z",
-    "hidden": false
+    "updatedAt": "2025-07-18T11:10:48.193Z",
+    "hidden": true
   },
   {
     "id": "acc004",
@@ -48,8 +48,8 @@
     "isHot": true,
     "isNew": true,
     "createdAt": "2025-07-18T09:47:35.753Z",
-    "updatedAt": "2025-07-18T09:54:12.555Z",
-    "hidden": false
+    "updatedAt": "2025-07-18T10:49:34.250Z",
+    "hidden": true
   },
   {
     "id": "acc005",
@@ -61,8 +61,8 @@
     "isHot": true,
     "isNew": true,
     "createdAt": "2025-07-18T09:47:35.753Z",
-    "updatedAt": "2025-07-18T09:47:35.753Z",
-    "hidden": false
+    "updatedAt": "2025-07-18T11:10:45.683Z",
+    "hidden": true
   },
   {
     "id": "acc006",
@@ -74,8 +74,8 @@
     "isHot": true,
     "isNew": true,
     "createdAt": "2025-07-18T09:47:35.753Z",
-    "updatedAt": "2025-07-18T09:47:35.753Z",
-    "hidden": false
+    "updatedAt": "2025-07-18T11:10:42.779Z",
+    "hidden": true
   },
   {
     "id": "acc_20250718164758",
@@ -87,7 +87,43 @@
     "isHot": false,
     "isNew": true,
     "createdAt": "2025-07-18T09:47:58.250Z",
-    "updatedAt": "2025-07-18T09:47:58.250Z",
+    "updatedAt": "2025-07-18T11:10:40.101Z",
+    "hidden": true
+  },
+  {
+    "id": "acc_20250718174919",
+    "game": "Liên Minh Huyền Thoại",
+    "rank": "Huyền Thoại",
+    "price": 100,
+    "skins": 11,
+    "images": [
+      "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2023_5_29_638209714939405853_lq.jpg",
+      "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/acc_lien_quan_mien_phi_0_10d2ab0470.jpg"
+    ],
+    "accountInfo": "Google",
+    "isHot": true,
+    "isNew": true,
+    "createdAt": "2025-07-18T10:49:19.358Z",
+    "updatedAt": "2025-07-18T11:18:34.181Z",
+    "hidden": false,
+    "sale": "20"
+  },
+  {
+    "id": "acc_20250718175618",
+    "game": "Free Fire",
+    "rank": "HT",
+    "price": 50000,
+    "skins": 22,
+    "images": [
+      "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2023_5_29_638209714939405853_lq.jpg",
+      "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/acc_lien_quan_mien_phi_0_10d2ab0470.jpg"
+    ],
+    "accountInfo": "Google",
+    "sale": "30",
+    "isHot": true,
+    "isNew": false,
+    "createdAt": "2025-07-18T10:56:18.817Z",
+    "updatedAt": "2025-07-18T10:56:18.817Z",
     "hidden": false
   }
 ]

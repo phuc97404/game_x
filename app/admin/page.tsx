@@ -1,8 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-// initialAccounts chỉ dùng lần đầu, sau đó luôn lấy từ API
-import initialAccounts from "./initialAccounts.json";
 
 export default function AdminPage() {
   const [accounts, setAccounts] = useState<any[]>([]);
@@ -56,7 +54,9 @@ export default function AdminPage() {
     rank: "",
     price: "",
     skins: "",
-    image: "",
+    images: "",
+    accountInfo: "",
+    sale: "10",
     isHot: true,
     isNew: false,
     createdAt: new Date().toISOString(),
@@ -76,6 +76,13 @@ export default function AdminPage() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const now = new Date().toISOString();
+    // Xử lý images: chuyển từ textarea (dạng string) sang mảng string
+    const imagesArr = form.images
+      ? form.images
+          .split("\n")
+          .map((s: string) => s.trim())
+          .filter(Boolean)
+      : [];
     if (editing) {
       const newAccounts = accounts.map((acc) =>
         acc.id === editing
@@ -83,6 +90,7 @@ export default function AdminPage() {
               ...form,
               price: +form.price,
               skins: +form.skins,
+              images: imagesArr,
               hidden: false,
               updatedAt: now,
             }
@@ -95,7 +103,9 @@ export default function AdminPage() {
         rank: "",
         price: "",
         skins: "",
-        image: "",
+        images: "",
+        accountInfo: "",
+        sale: "10",
         isHot: true,
         isNew: false,
         createdAt: new Date().toISOString(),
@@ -110,6 +120,8 @@ export default function AdminPage() {
           id: genNewId(),
           price: +form.price,
           skins: +form.skins,
+          images: imagesArr,
+          accountInfo: form.accountInfo,
           createdAt: now,
           updatedAt: now,
           hidden: false,
@@ -122,7 +134,9 @@ export default function AdminPage() {
         rank: "",
         price: "",
         skins: "",
-        image: "",
+        images: "",
+        accountInfo: "",
+        sale: "10",
         isHot: true,
         isNew: false,
         createdAt: new Date().toISOString(),
@@ -135,7 +149,16 @@ export default function AdminPage() {
 
   // Sửa
   const handleEdit = (acc: any) => {
-    setForm({ ...acc, price: acc.price + "", skins: acc.skins + "" });
+    setForm({
+      ...acc,
+      price: acc.price + "",
+      skins: acc.skins + "",
+      images: Array.isArray(acc.images)
+        ? acc.images.join("\n")
+        : acc.images || "",
+      accountInfo: acc.accountInfo || "",
+      sale: acc.sale ? acc.sale + "" : "10",
+    });
     setEditing(acc.id);
   };
 
@@ -168,7 +191,9 @@ export default function AdminPage() {
       rank: "",
       price: "",
       skins: "",
-      image: "",
+      images: "",
+      accountInfo: "",
+      sale: "10",
       isHot: true,
       isNew: false,
       createdAt: new Date().toISOString(),
@@ -200,14 +225,18 @@ export default function AdminPage() {
             className="border rounded px-3 py-2 w-32 bg-gray-100 text-gray-500 cursor-not-allowed"
             disabled
           />
-          <input
+          <select
             name="game"
             value={form.game}
             onChange={handleChange}
-            placeholder="Game"
             required
-            className="border rounded px-3 py-2 w-32"
-          />
+            className="border rounded px-3 py-2 w-40"
+          >
+            <option value="">Chọn game</option>
+            <option value="Liên Quân">Liên Quân</option>
+            <option value="Free Fire">Free Fire</option>
+            <option value="Liên Minh Huyền Thoại">Liên Minh Huyền Thoại</option>
+          </select>
           <input
             name="rank"
             value={form.rank}
@@ -216,6 +245,17 @@ export default function AdminPage() {
             required
             className="border rounded px-3 py-2 w-32"
           />
+          <select
+            name="sale"
+            value={form.sale}
+            onChange={handleChange}
+            className="border rounded px-3 py-2 w-28"
+            required
+          >
+            {Array.from({ length: 9 }, (_, i) => 10 * (i + 1)).map((v) => (
+              <option key={v} value={v}>{`Sale ${v}%`}</option>
+            ))}
+          </select>
           <input
             name="price"
             value={form.price}
@@ -234,12 +274,19 @@ export default function AdminPage() {
             required
             className="border rounded px-3 py-2 w-24"
           />
-          <input
-            name="image"
-            value={form.image}
+          <textarea
+            name="images"
+            value={form.images}
             onChange={handleChange}
-            placeholder="Link ảnh"
-            className="border rounded px-3 py-2 w-48"
+            placeholder="Link ảnh (mỗi dòng 1 link)"
+            className="border rounded px-3 py-2 w-64 h-20 resize-y"
+          />
+          <input
+            name="accountInfo"
+            value={form.accountInfo}
+            onChange={handleChange}
+            placeholder="Dữ liệu tài khoản đăng ký"
+            className="border rounded px-3 py-2 w-64"
           />
           {/* Ẩn ô nhập ngày tạo, chỉ lưu tự động */}
         </div>
@@ -298,9 +345,11 @@ export default function AdminPage() {
                 <th className="border px-2 py-1">Rank</th>
                 <th className="border px-2 py-1">Giá (VNĐ)</th>
                 <th className="border px-2 py-1">Skin</th>
+                <th className="border px-2 py-1">Sale</th>
                 <th className="border px-2 py-1">HOT</th>
                 <th className="border px-2 py-1">NEW</th>
                 <th className="border px-2 py-1">Ảnh</th>
+                <th className="border px-2 py-1">TK Đăng ký</th>
                 <th className="border px-2 py-1">Ngày tạo</th>
                 <th className="border px-2 py-1">Cập nhật</th>
                 <th className="border px-2 py-1">Trạng thái</th>
@@ -333,6 +382,9 @@ export default function AdminPage() {
                     {acc.price.toLocaleString()}
                   </td>
                   <td className="border px-2 py-1 text-right">{acc.skins}</td>
+                  <td className="border px-2 py-1 text-center font-bold text-red-500">
+                    {acc.sale ? `${acc.sale}%` : "-"}
+                  </td>
                   <td className="border px-2 py-1 text-center">
                     {acc.isHot ? (
                       <span
@@ -358,7 +410,33 @@ export default function AdminPage() {
                     )}
                   </td>
                   <td className="border px-2 py-1">
-                    {acc.image && (
+                    {Array.isArray(acc.images) && acc.images.length > 0 ? (
+                      <div className="flex flex-wrap gap-1 items-center">
+                        {acc.images.map((img: string, idx: number) => (
+                          <div
+                            key={img + idx}
+                            className="relative group flex items-center justify-center"
+                          >
+                            <Image
+                              src={img}
+                              alt={acc.game}
+                              width={40}
+                              height={40}
+                              className="rounded shadow cursor-pointer border border-gray-200 group-hover:opacity-60"
+                            />
+                            <div className="absolute z-10 hidden group-hover:flex left-1/2 -translate-x-1/2 top-10 bg-white p-2 rounded shadow-xl border border-blue-200">
+                              <Image
+                                src={img}
+                                alt={acc.game}
+                                width={180}
+                                height={180}
+                                className="rounded"
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : acc.image ? (
                       <div className="relative group flex items-center justify-center">
                         <Image
                           src={acc.image}
@@ -377,7 +455,10 @@ export default function AdminPage() {
                           />
                         </div>
                       </div>
-                    )}
+                    ) : null}
+                  </td>
+                  <td className="border px-2 py-1 font-mono text-xs text-gray-700">
+                    {acc.accountInfo || ""}
                   </td>
                   <td
                     className="border px-2 py-1 font-mono text-xs text-gray-700"

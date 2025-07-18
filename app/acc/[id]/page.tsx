@@ -6,12 +6,21 @@ import { useParams } from "next/navigation";
 import mockAccounts from "../../admin/initialAccounts.json";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import { useState } from "react";
 
 export default function AccDetailPage() {
   const params = useParams();
   const router = useRouter();
   const { id } = params;
   const account = mockAccounts.find((a) => a.id === id);
+  const [imgIdx, setImgIdx] = useState(0);
+  const images = account
+    ? Array.isArray(account.images) && account.images.length > 0
+      ? account.images
+      : account.image
+      ? [account.image]
+      : ["/file.svg"]
+    : ["/file.svg"];
 
   if (!account) {
     return (
@@ -28,13 +37,37 @@ export default function AccDetailPage() {
     <div className="container mx-auto max-w-2xl p-6 relative">
       <Header />
       <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center">
-        <Image
-          src={account.image}
-          alt={account.game}
-          width={320}
-          height={220}
-          className="rounded-xl mb-4 shadow"
-        />
+        {/* Slide ảnh */}
+        <div className="relative w-full flex items-center justify-center mb-4">
+          <button
+            className="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-200 hover:bg-blue-400 text-blue-700 rounded-full p-2 shadow-lg z-10 disabled:opacity-40"
+            onClick={() =>
+              setImgIdx((i) => (i > 0 ? i - 1 : images.length - 1))
+            }
+            disabled={images.length <= 1}
+            aria-label="Prev image"
+          >
+            ◀
+          </button>
+          <Image
+            src={images[imgIdx]}
+            alt={account.game}
+            width={320}
+            height={220}
+            className="rounded-xl shadow object-cover"
+          />
+          <button
+            className="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-200 hover:bg-blue-400 text-blue-700 rounded-full p-2 shadow-lg z-10 disabled:opacity-40"
+            onClick={() =>
+              setImgIdx((i) => (i < images.length - 1 ? i + 1 : 0))
+            }
+            disabled={images.length <= 1}
+            aria-label="Next image"
+          >
+            ▶
+          </button>
+        </div>
+        {/* Hiển thị mức sale và loại tài khoản */}
         <div className="w-full flex flex-col gap-2 mb-4">
           <h1 className="text-3xl font-extrabold text-blue-700 mb-2 flex items-center gap-2">
             {account.game}{" "}
@@ -51,6 +84,14 @@ export default function AccDetailPage() {
             </div>
             <div className="bg-yellow-50 px-4 py-2 rounded-lg font-bold text-yellow-700 shadow-sm">
               Giá: {account.price.toLocaleString()} VNĐ
+            </div>
+            <div className="bg-yellow-100 text-yellow-700 font-bold px-4 py-2 rounded-lg shadow-sm">
+              <div className="bg-blue-100 text-blue-700 font-bold px-4 py-2 rounded-lg shadow-sm">
+                {"accountInfo" in account &&
+                  account.accountInfo &&
+                  account.accountInfo}
+              </div>
+              {"sale" in account && account.sale && `Sale ${account.sale}%`}
             </div>
           </div>
           {/* Thông tin nick bổ sung */}

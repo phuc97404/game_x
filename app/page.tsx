@@ -1,11 +1,17 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import mockAccounts from "./admin/initialAccounts.json";
-import { url } from "inspector";
+import { lodash } from "lodash";
 
-const games = ["Liên Quân", "Free Fire"];
+const games = [
+  "Liên Quân",
+  "Free Fire",
+  "Liên Minh Huyền Thoại",
+  "PUBG Mobile",
+  "Call of Duty Mobile",
+];
 const ranks = ["Cao Thủ", "Huyền Thoại", "Kim Cương", "Bạch Kim"];
 const priceRanges = [
   { label: "< 150.000", min: 0, max: 150000 },
@@ -18,6 +24,36 @@ export default function Home() {
   const [selectedRank, setSelectedRank] = useState("");
   const [selectedPrice, setSelectedPrice] = useState("");
   const [search, setSearch] = useState("");
+  const [showWelcome, setShowWelcome] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
+  const [adminPass, setAdminPass] = useState("");
+  const [loginError, setLoginError] = useState("");
+
+  useEffect(() => {
+    if (!showWelcome) return;
+    const timer = setTimeout(() => setShowWelcome(false), 8000);
+    return () => clearTimeout(timer);
+  }, [showWelcome]);
+
+  async function handleAdminLogin(e: React.FormEvent) {
+    e.preventDefault();
+    setLoginError("");
+    // Giả lập API check password, bạn có thể thay bằng fetch thực tế
+    const res = await fetch("/api/check-admin-pass", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: adminPass }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      setShowLogin(false);
+      setAdminPass("");
+      setLoginError("");
+      window.location.href = "/admin";
+    } else {
+      setLoginError("Mật khẩu không đúng!");
+    }
+  }
 
   // Chỉ filter cho danh sách hot, danh sách mới luôn lấy 4 acc mới nhất
   const filterHotAccounts = (accounts: typeof mockAccounts) => {
@@ -54,13 +90,53 @@ export default function Home() {
     <div className="container mx-auto p-4 font-sans relative">
       {/* Nút Login Admin */}
       <div className="absolute top-4 right-4 z-20">
-        <Link
-          href="/admin"
+        <button
+          type="button"
           className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold px-5 py-2 rounded-full shadow hover:from-purple-600 hover:to-blue-600 transition-colors text-base"
+          onClick={() => setShowLogin(true)}
         >
           Đăng nhập Admin
-        </Link>
+        </button>
       </div>
+      {/* Popup login admin */}
+      {showLogin && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <form
+            onSubmit={handleAdminLogin}
+            className="bg-white rounded-2xl shadow-2xl p-8 max-w-xs w-full text-center relative animate-fade-in"
+          >
+            <button
+              className="absolute top-2 right-2 text-gray-400 hover:text-red-500 text-2xl font-bold"
+              onClick={() => setShowLogin(false)}
+              type="button"
+              aria-label="Đóng"
+            >
+              ×
+            </button>
+            <h2 className="text-xl font-extrabold text-blue-700 mb-4">
+              Đăng nhập Admin
+            </h2>
+            <input
+              type="password"
+              value={adminPass}
+              onChange={(e) => setAdminPass(e.target.value)}
+              placeholder="Nhập mật khẩu quản trị"
+              className="w-full px-4 py-2 rounded border-2 border-blue-300 mb-3 focus:ring-2 focus:ring-blue-400 outline-none text-lg"
+              autoFocus
+            />
+            {loginError && (
+              <div className="text-red-500 mb-2 text-sm">{loginError}</div>
+            )}
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-2 rounded shadow hover:from-purple-600 hover:to-blue-600 transition-colors text-base"
+            >
+              Đăng nhập
+            </button>
+          </form>
+        </div>
+      )}
+
       {/* Banner + Slider quảng cáo */}
       <div className="mb-8">
         {/* Banner */}
@@ -189,7 +265,7 @@ export default function Home() {
                 <span>🆕</span> Mới
               </div>
               <Image
-                src={account.image}
+                src={lodash.get(account, "images[0]") || "/file.svg"}
                 alt={account.game}
                 width={220}
                 height={220}
@@ -219,6 +295,16 @@ export default function Home() {
               <p className="text-sm text-gray-700 mb-2">
                 Số lượng skin:{" "}
                 <span className="font-semibold">{account.skins}</span>
+              </p>
+              <p className="text-sm text-gray-700 mb-1">
+                <span className="inline-block bg-blue-100 text-blue-700 font-bold px-2 py-0.5 rounded">
+                  {"accountInfo" in account &&
+                    account.accountInfo &&
+                    account.accountInfo}
+                </span>
+                <span className="inline-block bg-yellow-100 text-yellow-700 font-bold px-2 py-0.5 rounded mr-2">
+                  {"sale" in account && account.sale && `Sale ${account.sale}%`}
+                </span>
               </p>
               <Link
                 href={`/acc/${account.id}`}
@@ -310,7 +396,7 @@ export default function Home() {
                 <span>🔥</span> Hot
               </div>
               <Image
-                src={account.image}
+                src={lodash.get(account, "images[0]") || "/file.svg"}
                 alt={account.game}
                 width={220}
                 height={220}
@@ -341,6 +427,14 @@ export default function Home() {
                 Số lượng skin:{" "}
                 <span className="font-semibold">{account.skins}</span>
               </p>
+              <p className="text-sm text-gray-700 mb-1">
+                <span className="inline-block bg-blue-100 text-blue-700 font-bold px-2 py-0.5 rounded">
+                  {account.accountInfo && account.accountInfo}
+                </span>
+                <span className="inline-block bg-yellow-100 text-yellow-700 font-bold px-2 py-0.5 rounded mr-2">
+                  {account.sale && `Sale ${account.sale}%`}
+                </span>
+              </p>
               <Link
                 href={`/acc/${account.id}`}
                 className="block text-center bg-gradient-to-r from-yellow-400 to-pink-400 text-white font-bold py-2 rounded-lg mt-2 shadow hover:from-pink-400 hover:to-yellow-400 transition-colors"
@@ -360,6 +454,49 @@ export default function Home() {
           Xem tất cả các nick hot
         </Link>
       </div>
+      {/* Popup chào mừng */}
+      {showWelcome && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center relative animate-fade-in">
+            <button
+              className="absolute top-2 right-2 text-gray-400 hover:text-red-500 text-2xl font-bold"
+              onClick={() => setShowWelcome(false)}
+              aria-label="Đóng"
+            >
+              ×
+            </button>
+            <h2 className="text-2xl font-extrabold text-blue-700 mb-2">
+              Chào mừng đến với Game X Shop!
+            </h2>
+            <p className="mb-2 text-lg text-pink-600 font-semibold">
+              Cập nhật những acc game mới nhất, cập nhật liên tục mỗi ngày.
+            </p>
+            <p className="mb-4 text-gray-700">
+              Nếu bạn có vấn đề gì, vui lòng liên hệ{" "}
+              <a
+                href="mailto:support@gamex.vn"
+                className="text-blue-600 underline hover:text-pink-500"
+              >
+                support@gamex.vn
+              </a>{" "}
+              hoặc hotline{" "}
+              <a
+                href="tel:0123456789"
+                className="text-blue-600 underline hover:text-pink-500"
+              >
+                0123 456 789
+              </a>
+              .
+            </p>
+            <button
+              className="mt-2 px-6 py-2 bg-gradient-to-r from-blue-600 to-pink-500 text-white font-bold rounded-full shadow hover:from-pink-500 hover:to-blue-600 transition"
+              onClick={() => setShowWelcome(false)}
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      )}
       {/* Footer */}
       <footer className="w-full mt-8 py-6 bg-gradient-to-r from-blue-700 to-purple-700 text-white rounded-t-2xl shadow-inner text-center">
         <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 px-4">
@@ -387,6 +524,20 @@ export default function Home() {
           </div>
         </div>
       </footer>
+      {/* Zalo contact icon fixed bottom right */}
+      <a
+        href="https://zalo.me/0396900698"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed z-50 bottom-6 right-6 bg-white rounded-full shadow-lg p-2 border-2 border-blue-500 hover:bg-blue-50 transition flex items-center group"
+        title="Liên hệ Zalo Game X"
+      >
+        <img
+          src="/zalo-icon.svg"
+          alt="Zalo"
+          className="w-12 h-12 drop-shadow group-hover:scale-110 transition-transform"
+        />
+      </a>
     </div>
   );
 }
