@@ -1,0 +1,93 @@
+[
+  {
+    "id": "acc001",
+    "game": "Liên Quân",
+    "rank": "Cao Thủ",
+    "price": 300000,
+    "skins": 67,
+    "image": "https://drive.google.com/file/d/1iXsmLdSzzi7jymJUXkGl9MEoWfFcKBqS/view?usp=sharing",
+    "isHot": true,
+    "isNew": true,
+    "createdAt": "2023-12-01",
+    "hidden": false,
+    "updatedAt": "2023-12-01"
+  },
+  {
+    "id": "acc002",
+    "game": "Free Fire",
+    "rank": "Huyền Thoại",
+    "price": 250000,
+    "skins": 45,
+    "image": "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2023_5_29_638209714939405853_lq.jpg",
+    "isHot": false,
+    "isNew": true,
+    "createdAt": "2023-12-02",
+    "hidden": false,
+    "updatedAt": "2023-12-02"
+  },
+  {
+    "id": "acc003",
+    "game": "Free Fire",
+    "rank": "Huyền Thoại",
+    "price": 450000,
+    "skins": 45,
+    "image": "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2023_5_29_638209714939405853_lq.jpg",
+    "isHot": false,
+    "isNew": true,
+    "createdAt": "2025-07-18T09:47:35.753Z",
+    "updatedAt": "2025-07-18T09:47:35.753Z",
+    "hidden": false
+  },
+  {
+    "id": "acc004",
+    "game": "Free Fire",
+    "rank": "Huyền Thoại",
+    "price": 200000,
+    "skins": 12,
+    "image": "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2023_5_29_638209714939405853_lq.jpg",
+    "isHot": false,
+    "isNew": true,
+    "createdAt": "2025-07-18T09:47:35.753Z",
+    "updatedAt": "2025-07-18T09:47:35.753Z",
+    "hidden": false
+  },
+  {
+    "id": "acc005",
+    "game": "Liên Quân",
+    "rank": "Cao Thủ",
+    "price": 100000,
+    "skins": 67,
+    "image": "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2023_5_29_638209714939405853_lq.jpg",
+    "isHot": true,
+    "isNew": true,
+    "createdAt": "2025-07-18T09:47:35.753Z",
+    "updatedAt": "2025-07-18T09:47:35.753Z",
+    "hidden": false
+  },
+  {
+    "id": "acc006",
+    "game": "Liên Quân",
+    "rank": "Cao Thủ",
+    "price": 300000,
+    "skins": 20,
+    "image": "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2023_5_29_638209714939405853_lq.jpg",
+    "isHot": true,
+    "isNew": true,
+    "createdAt": "2025-07-18T09:47:35.753Z",
+    "updatedAt": "2025-07-18T09:47:35.753Z",
+    "hidden": false
+  },
+  {
+    "id": "acc_20250718164758",
+    "game": "LQ113",
+    "rank": "KC",
+    "price": 250000,
+    "skins": 12,
+    "image": "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2023_5_29_638209714939405853_lq.jpg",
+    "isHot": false,
+    "isNew": true,
+    "createdAt": "2025-07-18T09:47:58.250Z",
+    "updatedAt": "2025-07-18T09:47:58.250Z",
+    "hidden": false
+  }
+]
