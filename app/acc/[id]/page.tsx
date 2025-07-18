@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import mockAccounts from "../../admin/initialAccounts.json";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 export default function AccDetailPage() {
   const params = useParams();
@@ -23,7 +25,8 @@ export default function AccDetailPage() {
   }
 
   return (
-    <div className="container mx-auto max-w-2xl p-6">
+    <div className="container mx-auto max-w-2xl p-6 relative">
+      <Header />
       <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center">
         <Image
           src={account.image}
@@ -114,7 +117,7 @@ export default function AccDetailPage() {
           ← Quay về trang chủ
         </Link>
         {/* Thông tin liên hệ */}
-        <div className="w-full mt-8 text-center text-gray-500 text-sm border-t pt-4">
+        {/* <div className="w-full mt-8 text-center text-gray-500 text-sm border-t pt-4">
           <div>
             Hỗ trợ 24/7:{" "}
             <a href="tel:0123456789" className="text-blue-600 hover:underline">
@@ -140,7 +143,8 @@ export default function AccDetailPage() {
           <div className="mt-1">
             © {new Date().getFullYear()} GameX. All rights reserved.
           </div>
-        </div>
+        </div> */}
+        <Footer />
       </div>
     </div>
   );

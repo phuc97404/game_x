@@ -19,11 +19,11 @@
     "price": 250000,
     "skins": 45,
     "image": "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2023_5_29_638209714939405853_lq.jpg",
-    "isHot": false,
+    "isHot": true,
     "isNew": true,
     "createdAt": "2023-12-02",
     "hidden": false,
-    "updatedAt": "2023-12-02"
+    "updatedAt": "2025-07-18T09:54:03.286Z"
   },
   {
     "id": "acc003",
@@ -32,10 +32,10 @@
     "price": 450000,
     "skins": 45,
     "image": "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2023_5_29_638209714939405853_lq.jpg",
-    "isHot": false,
+    "isHot": true,
     "isNew": true,
     "createdAt": "2025-07-18T09:47:35.753Z",
-    "updatedAt": "2025-07-18T09:47:35.753Z",
+    "updatedAt": "2025-07-18T09:54:07.661Z",
     "hidden": false
   },
   {
@@ -45,10 +45,10 @@
     "price": 200000,
     "skins": 12,
     "image": "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2023_5_29_638209714939405853_lq.jpg",
-    "isHot": false,
+    "isHot": true,
     "isNew": true,
     "createdAt": "2025-07-18T09:47:35.753Z",
-    "updatedAt": "2025-07-18T09:47:35.753Z",
+    "updatedAt": "2025-07-18T09:54:12.555Z",
     "hidden": false
   },
   {
