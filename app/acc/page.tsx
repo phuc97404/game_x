@@ -5,7 +5,7 @@ import mockAccounts from "../admin/initialAccounts.json";
 import { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { lodash } from "lodash";
+import { get } from "lodash";
 
 export default function AccListPage() {
   // Lọc các nick hot (hoặc tất cả nick nếu muốn)
@@ -74,7 +74,7 @@ export default function AccListPage() {
               className="bg-white rounded-xl shadow-lg p-4 flex flex-col items-center hover:shadow-2xl transition-shadow border border-transparent hover:border-blue-300"
             >
               <Image
-                src={lodash.get(account, "images[0]") || "/file.svg"}
+                src={get(account, "images[0]") || "/file.svg"}
                 alt={account.game}
                 width={200}
                 height={200}

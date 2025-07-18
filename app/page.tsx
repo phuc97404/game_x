@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import mockAccounts from "./admin/initialAccounts.json";
-import { lodash } from "lodash";
+import { get } from "lodash";
 
 const games = [
   "Liên Quân",
@@ -172,79 +172,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-
-        {/* Nút xem tất cả */}
-        {/* <div className="w-full flex justify-center mt-2">
-          <Link
-            href="/acc"
-            className="inline-block bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-2 px-6 rounded-full shadow hover:from-purple-500 hover:to-pink-500 transition-colors text-lg"
-          >
-            Xem tất cả các nick mới
-          </Link>
-        </div> */}
       </div>
-
-      {/* Ô tìm kiếm */}
-      {/* <div className="mb-4 flex justify-center">
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Tìm kiếm theo tên game, rank hoặc mã acc..."
-          className="w-full max-w-md px-4 py-2 rounded-full border-2 border-blue-300 shadow focus:ring-2 focus:ring-blue-400 outline-none text-lg"
-        />
-      </div> */}
-
-      {/* Bộ lọc */}
-      {/* <div className="mb-8 flex flex-wrap gap-6 items-end bg-white/80 rounded-2xl shadow p-4">
-        <div>
-          <label className="block font-semibold mb-1 text-blue-700">Game</label>
-          <select
-            className="border-2 border-blue-300 rounded-full px-3 py-2 shadow-sm focus:ring-2 focus:ring-blue-400 outline-none"
-            value={selectedGame}
-            onChange={(e) => setSelectedGame(e.target.value)}
-          >
-            <option value="">Tất cả</option>
-            {games.map((g) => (
-              <option key={g} value={g}>
-                {g}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="block font-semibold mb-1 text-blue-700">Rank</label>
-          <select
-            className="border-2 border-purple-300 rounded-full px-3 py-2 shadow-sm focus:ring-2 focus:ring-purple-400 outline-none"
-            value={selectedRank}
-            onChange={(e) => setSelectedRank(e.target.value)}
-          >
-            <option value="">Tất cả</option>
-            {ranks.map((r) => (
-              <option key={r} value={r}>
-                {r}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="block font-semibold mb-1 text-blue-700">
-            Giá tiền
-          </label>
-          <select
-            className="border-2 border-pink-300 rounded-full px-3 py-2 shadow-sm focus:ring-2 focus:ring-pink-400 outline-none"
-            value={selectedPrice}
-            onChange={(e) => setSelectedPrice(e.target.value)}
-          >
-            <option value="">Tất cả</option>
-            {priceRanges.map((p) => (
-              <option key={p.label} value={p.label}>
-                {p.label}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div> */}
 
       {/* Danh sách acc mới */}
       <h2 className="text-2xl font-extrabold mb-3 text-pink-600 flex items-center gap-2">
@@ -265,7 +193,7 @@ export default function Home() {
                 <span>🆕</span> Mới
               </div>
               <Image
-                src={lodash.get(account, "images[0]") || "/file.svg"}
+                src={get(account, "images[0]") || "/file.svg"}
                 alt={account.game}
                 width={220}
                 height={220}
@@ -396,7 +324,7 @@ export default function Home() {
                 <span>🔥</span> Hot
               </div>
               <Image
-                src={lodash.get(account, "images[0]") || "/file.svg"}
+                src={get(account, "images[0]") || "/file.svg"}
                 alt={account.game}
                 width={220}
                 height={220}
